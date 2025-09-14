@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Khushwant Dave — Cyber Cat</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#08203b;   /* deep navy */
+    --bg2:#12407a;   /* blue */
+    --neon:#00f6a0;  /* neon green */
+    --accent:#ff6b6b;
+    --card: rgba(255,255,255,0.06);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Inter,system-ui,Arial,sans-serif;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(0,246,160,0.03) 0 8%, transparent 20%),
+      radial-gradient(ellipse at 85% 90%, rgba(255,107,107,0.02) 0 8%, transparent 20%),
+      linear-gradient(140deg,var(--bg1),var(--bg2));
+    color:#fff;
+    overflow:hidden;
+  }
+
+  /* background grid & code lines */
+  .grid {
+    position: absolute;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mix-blend-mode: overlay;
+    z-index:0;
+    animation: moveGrid 18s linear infinite;
+    opacity:0.55;
+  }
+  @keyframes moveGrid {
+    from{ background-position: 0 0, 0 0; }
+    to{ background-position: 160px 160px, -160px -160px; }
+  }
+
+  .code-anim{
+    position:absolute;
+    top:10%;
+    right:6%;
+    width:220px;
+    height:260px;
+    z-index:0;
+    opacity:0.06;
+    filter:blur(1px);
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.7));
+    box-shadow: inset 0 0 40px rgba(0,246,160,0.06);
+    border-radius:12px;
+    animation: floatY 8s ease-in-out infinite;
+  }
+  @keyframes floatY { 0%{transform:translateY(-6px)}50%{transform:translateY(6px)}100%{transform:translateY(-6px)} }
+
+  .card{
+    position:relative;
+    z-index:2;
+    width:420px;
+    max-width:92vw;
+    padding:28px;
+    border-radius:18px;
+    background:var(--card);
+    box-shadow: 0 20px 50px rgba(3,7,18,0.6);
+    backdrop-filter: blur(10px) saturate(140%);
+    transform:translateY(0);
+    transition:transform .25s ease, box-shadow .25s;
+  }
+  .card:hover{ transform:translateY(-8px); box-shadow:0 34px 80px rgba(2,6,20,0.7); }
+
+  /* avatar - round + glowing ring */
+  .avatar-wrap{
+    width:118px;
+    height:118px;
+    border-radius:50%;
+    margin:0 auto 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+  .avatar-ring{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    background: radial-gradient(circle at 15% 18%, rgba(0,246,160,0.18), transparent 18%),
+                conic-gradient(from 120deg, rgba(0,246,160,0.06), rgba(0,246,160,0.0));
+    filter: blur(6px);
+    z-index:0;
+    animation: ringRotate 7s linear infinite;
+  }
+  @keyframes ringRotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+  .avatar{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    background:#fff; /* fallback */
+    z-index:1;
+    overflow:hidden;
+    border:3px solid rgba(255,255,255,0.06);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  }
+
+  h1{
+    margin:8px 0 4px;
+    font-size:1.45rem;
+    letter-spacing:0.2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+  }
+  h1 .paw { font-size:1.05rem; opacity:0.95; }
+
+  h2{
+    margin:0 0 12px;
+    font-size:0.95rem;
+    color:#ffd98b;
+    text-align:center;
+    font-weight:600;
+  }
+
+  p.bio{
+    font-size:0.92rem;
+    line-height:1.45;
+    color:rgba(255,255,255,0.95);
+    margin:0 0 12px;
+    text-align:center;
+  }
+
+  .tagline{
+    font-size:0.86rem;
+    color:rgba(255,255,255,0.82);
+    margin-bottom:12px;
+    text-align:center;
+  }
+
+  .skills{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:8px;
+  }
+  .skills span{
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    padding:8px 12px;
+    border-radius:999px;
+    font-size:0.78rem;
+    color:#fff;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  }
+
+  .meta-row{
+    margin-top:14px;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    font-size:0.82rem;
+    color:rgba(255,255,255,0.85);
+  }
+  .meta-row > div{ flex:1; text-align:center; padding:6px 4px; }
+
+  .btn{
+    display:inline-block;
+    margin:16px auto 0;
+    padding:10px 20px;
+    background:linear-gradient(90deg, var(--accent), var(--btn));
+    color:#08121b;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  /* little floating icons - cyber dots */
+  .glow-dot{
+    position:absolute;
+    width:12px;height:12px;border-radius:50%;
+    background:var(--neon);opacity:0.12;filter:blur(4px);
+    z-index:1; animation:blink 3s infinite;
+  }
+  .glow-dot.one{top:10%; left:8%;}
+  .glow-dot.two{bottom:8%; right:6%; animation-delay:.6s}
+  @keyframes blink{0%{opacity:.04}50%{opacity:.22}100%{opacity:.04}}
+
+  /* responsive */
+  @media (max-width:480px){
+    .card{ width:92%; padding:18px; }
+    .avatar{ width:86px; height:86px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="grid"></div>
+  <div class="code-anim">
+    <!-- subtle repeating code lines (visual only) -->
+    <svg width="100%" height="100%" viewBox="0 0 200 260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#00f6a0"/><stop offset="1" stop-color="#6be8ff"/></linearGradient></defs>
+      <g fill="none" stroke="url(#g)" stroke-opacity="0.6" stroke-width="0.6">
+        <path d="M8 20 H190 M8 36 H190 M8 52 H190 M8 68 H190 M8 84 H190 M8 100 H190 M8 116 H190 M8 132 H190 M8 148 H190 M8 164 H190" />
+      </g>
+    </svg>
+  </div>
+
+  <div class="glow-dot one"></div>
+  <div class="glow-dot two"></div>
+
+  <div class="card" id="card">
+    <div class="avatar-wrap">
+      <div class="avatar-ring"></div>
+      <!-- inline SVG cartoon cyber-cat (animated eyes subtle) -->
+      <div class="avatar" aria-hidden="true">
+        <svg viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#ffd1a6"/><stop offset="1" stop-color="#fff"/></linearGradient>
+            <linearGradient id="g2" x1="0" x2="1"><stop offset="0" stop-color="#232323"/><stop offset="1" stop-color="#0f0f0f"/></linearGradient>
+          </defs>
+          <rect width="100%" height="100%" rx="50" fill="#0b2330"/>
+          <!-- ears -->
+          <path d="M40 60 Q10 30 40 20 Q70 40 40 60" fill="#e1c89b" transform="translate(-5,-2)"/>
+          <path d="M160 60 Q190 30 160 20 Q130 40 160 60" fill="#e1c89b" transform="translate(5,-2)"/>
+          <!-- face -->
+          <circle cx="100" cy="95" r="50" fill="url(#g1)" />
+          <!-- cyber goggles -->
+          <rect x="55" y="70" width="90" height="42" rx="10" fill="#071d24" stroke="#00f6a0" stroke-width="3"/>
+          <g fill="#00f6a0">
+            <rect x="68" y="78" width="18" height="22" rx="4" />
+            <rect x="114" y="78" width="18" height="22" rx="4" />
+          </g>
+          <!-- eyes (tiny animation via CSS below) -->
+          <g id="eyes" fill="#08121b">
+            <circle cx="77" cy="89" r="4"></circle>
+            <circle cx="123" cy="89" r="4"></circle>
+          </g>
+          <!-- mouth / whiskers -->
+          <path d="M85 115 Q100 125 115 115" stroke="#2b2b2b" stroke-width="3" fill="none"/>
+          <path d="M60 108 L40 110" stroke="#2b2b2b" stroke-width="2"/>
+          <path d="M140 108 L160 110" stroke="#2b2b2b" stroke-width="2"/>
+          <!-- small chip mark -->
+          <rect x="130" y="58" width="8" height="6" rx="1" fill="#00f6a0" opacity=".18"/>
+        </svg>
+      </div>
+    </div>
+
+    <h1 id="name">Khushwant Dave <span class="paw">🐾</span></h1>
+    <h2>BCA — Cybersecurity Student</h2>
+
+    <p class="bio">
+      I'm <strong>Khushwant</strong>, the <em>Cyber Cat</em> — curious about protocol flows, packet capture & web security.
+      I practice secure coding, analyze network traces and hunt bugs in web apps.
+    </p>
+
+    <div class="tagline">Focus: <strong>Input validation • Auth flaws • Packet analysis</strong></div>
+
+    <div class="skills" aria-hidden="false">
+      <span>python</span>
+      <span>HTML</span>
+      <span>CSS</span>
+      <span>Burp Suite</span>
+      <span>Wireshark</span>
+    </div>
+
+    <div class="meta-row">
+      <div>Roll: <strong>—</strong></div>
+      <div>Batch: <strong>2025</strong></div>
+      <div>Location: <strong>Jaipur/pokaran</strong></div>
+    </div>
+
+    <a class="btn" href="#" id="hire">Hire This Cat 😼</a>
+  </div>
+
+<script>
+  // small interactive: clicking avatar slightly winks eyes (temporary)
+  const avatarSVG = document.querySelector('.avatar svg');
+  avatarSVG.addEventListener('click', () => {
+    const eyes = avatarSVG.querySelectorAll('circle');
+    eyes.forEach((e)=> e.setAttribute('r', 1.2));
+    setTimeout(()=> eyes.forEach((e)=> e.setAttribute('r', 4)), 220);
+  });
+
+  // quick tips to change content from console:
+  // document.getElementById('name').textContent = 'Your Name 🐱';
+  // document.querySelector('.bio').innerHTML = 'Your new bio here';
+</script>
+</body>
+</html>
